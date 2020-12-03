@@ -1,0 +1,913 @@
+ else{
+        int dummy1 = toupper(move.at(0)) - 65;   // centers it on 0 | y-direction
+        int dummy2 = int(move.at(1)) - int('0');  // this returns the exact int value | x-direction
+        int dummy3 = toupper(move.at(2)) - int('0');  // returns the exact int value | y-direction
+        int dummy4 = move.at(3) - 65; // centers it on 0 | x-direction
+        if(dummy1 >=0 && dummy1 < 8){
+            if(dummy2 >= 0 && dummy2 < 8){
+                if(board[dummy1][dummy2].is_empty()){
+                    return false;
+                }
+            }
+            else{
+                return false;
+            }
+        }
+        else{
+            return false;
+        }
+
+        if(dummy3 >=0 && dummy3 < 8){
+            if(dummy4 >= 0 && dummy4 < 8){
+                if(!board[dummy3][dummy4].is_empty()){
+                    return false;
+                }
+            }
+            else{
+                return false;
+            }
+        }
+        else{
+            return false;
+        }
+
+        if( board[dummy1][dummy2].is_piece_red() ){
+            if(dummy3 != dummy1-1){
+                return false;
+            }
+            if(dummy2 != dummy4+1 || dummy2 != dummy4-1){
+                return false;
+            }
+        }
+        if( board[dummy1][dummy2].is_piece_white() ){
+            if(dummy3 != dummy1+1){
+                return false;
+            }
+            if(dummy2 != dummy4+1 || dummy2 != dummy4-1){
+                return false;
+            }
+        }
+
+
+    }
+
+
+
+
+
+
+    bool Checkers::white_move(int x1, int y1, int x2, int y2)const // white_move
+{ 
+    if( (y1 >= 0 && y1 < 8 ) && (x1 >= 0 && x1 < 8) ){
+        if(board[y1][x1].is_empty()){
+            return false;
+        }
+        else{
+            if(y2 != y1-1){ // moving 'up' the board
+                if(y2 != y1-2){ // did the piece jump?
+                    return false;
+                }
+            }
+            else{
+                if(  (x2 != x1+1) && (x2 != x1-1) ){ // moving left or right
+                    if( (x2 != x1+2) && (x2 != x1-2) ){ // did the piece jump?
+                        return false;
+                      }
+                      else{
+                        if(board[y1-1][x1-1].is_empty() || board[y1-1][x1-1].is_piece_white() ){
+                            return false;   
+                        }
+                        if(board[y1-1][x1+1].is_empty() || board[y1-1][x1+1].is_piece_white()){
+                            return false;
+                        }
+                        if(!board[y2][x2].is_empty()){
+                            return false;
+                        }
+                      }
+                }
+                else{
+                    if(y2 < 0 || y2 > 8){ // make sure we dont run off the board
+                        return false;
+                    }
+                    else if(x2 < 0 || x2 > 8){ // make sure we dont run off the board
+                        return false;
+                    }
+                }
+            }
+        }
+    }
+    return true;
+}
+
+
+
+
+
+///jenbr jkbnew
+
+
+
+bool Checkers::white_move(int x1, int y1, int x2, int y2)const // white_move
+{ 
+    if( (y1 >= 0 && y1 < 8 ) && (x1 >= 0 && x1 < 8) ){
+        if(board[y1][x1].is_empty()){
+            return false;
+        }
+        else{
+            if(y2 != y1-1){ // moving 'up' the board
+                if(y2 != y1-2){ // did the piece jump?
+                    return false;
+                }
+                else{ 
+                    if(  (x2 != x1+1) && (x2 != x1-1) ){ // moving left or right
+                        if( (x2 != x1+2) && (x2 != x1-2) ){ // did the piece jump?
+                            return false;
+                        }
+
+                        else{
+                            if( x1 > x2 ){ 
+                                if(board[y1-1][x1+1].is_empty( ) ){
+                                    return false;
+                                }
+                                else if(board[y1-1][x1+1].is_piece_white()){
+                                    return false;
+                                }
+                                else if(!board[y2][x2].is_empty()){
+                                    return false;
+                                }
+
+                            }
+                            else{ // x1 < x2
+                                if(board[y1-1][x1-1].is_empty( ) ){
+                                    return false;
+                                }
+                                else if(board[y1-1][x1-1].is_piece_white()){
+                                    return false;
+                                }
+                                else if(!board[y2][x2].is_empty()){
+                                    return false;
+                                }
+
+                            }
+
+                        }
+                    }
+                    else{
+                        if(y2 < 0 || y2 > 8){ // make sure we dont run off the board
+                            return false;
+                        }
+                        else if(x2 < 0 || x2 > 8){ // make sure we dont run off the board
+                            return false;
+                        }
+                    }
+                }
+
+            }
+            
+        }
+    }
+    return true;
+}
+
+
+
+bool Checkers::red_move(int x1, int y1, int x2, int y2)const
+{
+    if( (y1 >= 0 && y1 < 8 ) && (x1 >= 0 && x1 < 8) ){
+        if(board[y1][x1].is_empty()){
+            return false;
+        }
+        else{
+            if(y2 != y1+1){ // moving 'up' the board
+                if(y2 != y1+2){ // did the piece jump?
+                    return false;
+                }
+                else{ 
+                    if(  (x2 != x1+1) && (x2 != x1-1) ){ // moving left or right
+                        if( (x2 != x1+2) && (x2 != x1-2) ){ // did the piece jump?
+                            return false;
+                        }
+
+                        else{
+                            if( x1 > x2 ){ 
+                                if(board[y1+1][x1+1].is_empty( ) ){
+                                    return false;
+                                }
+                                else if(board[y1+1][x1+1].is_piece_red()){
+                                    return false;
+                                }
+                                else if(!board[y2][x2].is_empty()){
+                                    return false;
+                                }
+
+                            }
+                            else{ // x1 < x2
+                                if(board[y1+1][x1-1].is_empty( ) ){
+                                    return false;
+                                }
+                                else if(board[y1+1][x1-1].is_piece_red()){
+                                    return false;
+                                }
+                                else if(!board[y2][x2].is_empty()){
+                                    return false;
+                                }
+
+                            }
+
+                        }
+                    }
+                    else{
+                        if(y2 < 0 || y2 > 8){ // make sure we dont run off the board
+                            return false;
+                        }
+                        else if(x2 < 0 || x2 > 8){ // make sure we dont run off the board
+                            return false;
+                        }
+                    }
+                }
+
+            }
+            
+        }
+    }
+    return true;
+}
+
+
+##############################################################################################
+
+
+// ADDING FORCED JUMPS
+
+
+bool Checkers::white_move(int x1, int y1, int x2, int y2)const // white_move
+{ 
+    if(!board[y1][x1].is_piece_king()){
+        if( (y1 >= 0 && y1 < 8 ) && (x1 >= 0 && x1 < 8) ){
+            if(board[y1][x1].is_empty()){
+                return false;
+            }
+            else{
+                if(y2 != y1-1){ // moving 'up' the board
+                    if(y2 != y1-2){ // did the piece jump?
+                        return false;
+                    }
+                    else{ 
+                        if(  (x2 != x1+1) && (x2 != x1-1) ){ // moving left or right
+                            if( (x2 != x1+2) && (x2 != x1-2) ){ // did the piece jump?
+                                return false;
+                            }
+
+                            else{
+                                if( x1 > x2 ){ 
+                                    if(board[y1-1][x1+1].is_empty( ) ){
+                                        return false;
+                                    }
+                                    else if(board[y1-1][x1+1].is_piece_white()){
+                                        return false;
+                                    }
+                                    else if(!board[y2][x2].is_empty()){
+                                        return false;
+                                    }
+                                }
+                                else{ // x1 < x2
+                                    if(board[y1-1][x1-1].is_empty( ) ){
+                                        return false;
+                                    }
+                                    else if(board[y1-1][x1-1].is_piece_white()){
+                                        return false;
+                                    }
+                                    else if(!board[y2][x2].is_empty()){
+                                        return false;
+                                    }
+                                }
+
+                            }
+                        }
+                        else{
+                            if(y2 < 0 || y2 > 8){ // make sure we dont run off the board
+                                return false;
+                            }
+                            else if(x2 < 0 || x2 > 8){ // make sure we dont run off the board
+                                return false;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    else{ // piece is a king
+        if( (y1 >= 0 && y1 < 8 ) && (x1 >= 0 && x1 < 8) ){
+            if(board[y1][x1].is_empty()){
+                return false;
+            }
+            else{
+                if( (y2 != y1-1) && (y2 != y1+1)){ // moving 'up' or 'down' the board
+                    if( ( y2 != y1-2) && (y2 != y1+2 )){ // did the piece jump?
+                        return false;
+                    }
+                    else{ 
+                        if(  (x2 != x1+1) && (x2 != x1-1) ){ // moving left or right
+                            if( (x2 != x1+2) && (x2 != x1-2) ){ // did the piece jump?
+                                return false;
+                            }
+
+                            else{
+                                if( x1 > x2 ){ 
+                                    if(board[y1-1][x1+1].is_empty( ) ){
+                                        return false;
+                                    }
+                                    else if(board[y1-1][x1+1].is_piece_white()){
+                                        return false;
+                                    }
+                                    else if(!board[y2][x2].is_empty()){
+                                        return false;
+                                    }
+                                }
+                                else{ // x1 < x2
+                                    if(board[y1-1][x1-1].is_empty( ) ){
+                                        return false;
+                                    }
+                                    else if(board[y1-1][x1-1].is_piece_white()){
+                                        return false;
+                                    }
+                                    else if(!board[y2][x2].is_empty()){
+                                        return false;
+                                    }
+                                }
+
+                            }
+                        }
+                        else{
+                            if(y2 < 0 || y2 > 8){ // make sure we dont run off the board
+                                return false;
+                            }
+                            else if(x2 < 0 || x2 > 8){ // make sure we dont run off the board
+                                return false;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+
+
+
+    }
+    return true;
+}
+
+
+
+bool Checkers::red_move(int x1, int y1, int x2, int y2)const
+{
+    if(!board[y1][x1].is_piece_king()){
+        if( (y1 >= 0 && y1 < 8 ) && (x1 >= 0 && x1 < 8) ){
+            if(board[y1][x1].is_empty()){
+                return false;
+            }
+            else{
+                if(y2 != y1+1){ // moving 'up' the board
+                    if(y2 != y1+2){ // did the piece jump?
+                        return false;
+                    }
+                    else{ 
+                        if(  (x2 != x1+1) && (x2 != x1-1) ){ // moving left or right
+                            if( (x2 != x1+2) && (x2 != x1-2) ){ // did the piece jump?
+                                return false;
+                            }
+                            else{
+                                if( x1 > x2 ){ 
+                                    if(board[y1+1][x1+1].is_empty( ) ){
+                                        return false;
+                                    }
+                                    else if(board[y1+1][x1+1].is_piece_red()){
+                                        return false;
+                                    }
+                                    else if(!board[y2][x2].is_empty()){
+                                        return false;
+                                    }
+                                }
+                                else{ // x1 < x2
+                                    if(board[y1+1][x1-1].is_empty( ) ){
+                                        return false;
+                                    }
+                                    else if(board[y1+1][x1-1].is_piece_red()){
+                                        return false;
+                                    }
+                                    else if(!board[y2][x2].is_empty()){
+                                        return false;
+                                    }
+                                }
+                            }
+                        }
+                        else{
+                            if(y2 < 0 || y2 > 8){ // make sure we dont run off the board
+                                return false;
+                            }
+                            else if(x2 < 0 || x2 > 8){ // make sure we dont run off the board
+                                return false;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    else{
+        if( (y1 >= 0 && y1 < 8 ) && (x1 >= 0 && x1 < 8) ){
+            if(board[y1][x1].is_empty()){
+                return false;
+            }
+            else{
+                if( (y2 != y1+1) && (y2 != y1-1)){ // moving 'up' the board
+                    if( (y2 != y1+2) && (y2 != y1-2) ){ // did the piece jump?
+                        return false;
+                    }
+                    else{ 
+                        if(  (x2 != x1+1) && (x2 != x1-1) ){ // moving left or right
+                            if( (x2 != x1+2) && (x2 != x1-2) ){ // did the piece jump?
+                                return false;
+                            }
+                            else{
+                                if( x1 > x2 ){ 
+                                    if(board[y1+1][x1+1].is_empty( ) ){
+                                        return false;
+                                    }
+                                    else if(board[y1+1][x1+1].is_piece_red()){
+                                        return false;
+                                    }
+                                    else if(!board[y2][x2].is_empty()){
+                                        return false;
+                                    }
+                                }
+                                else{ // x1 < x2
+                                    if(board[y1+1][x1-1].is_empty( ) ){
+                                        return false;
+                                    }
+                                    else if(board[y1+1][x1-1].is_piece_red()){
+                                        return false;
+                                    }
+                                    else if(!board[y2][x2].is_empty()){
+                                        return false;
+                                    }
+                                }
+                            }
+                        }
+                        else{
+                            if(y2 < 0 || y2 > 8){ // make sure we dont run off the board
+                                return false;
+                            }
+                            else if(x2 < 0 || x2 > 8){ // make sure we dont run off the board
+                                return false;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+
+
+    }
+
+    return true;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+bool Checkers::white_move(int x1, int y1, int x2, int y2)const // white_move
+{ 
+    if(!board[y1][x1].is_piece_king()){
+
+
+        //forced jumps <-- logic is flawed
+        
+        if(board[y1-1][x1+1].is_piece_red() && board[y1-1][x1-1].is_piece_red()){
+            if(board[y1-2][x1+2].is_empty() && board[y1-2][x1-2].is_empty()){
+                if(board[y1-2][x1+2].is_empty() && board[y1-2][x1-2].is_empty()){
+                    if( (y2 != (y1-2) && x2 != (x1+2) ) || ( y2 != (y1-2) && x2 != (x1-2) )){
+                        return false;
+                    }
+                }
+            }
+        }
+        else if(board[y1-1][x1+1].is_piece_red()){
+            if(board[y1-2][x1+2].is_empty()){
+                if(y2 != (y1-2) && x2 != (x1+2)){
+                    return false;
+                }
+            }
+        } 
+        else if(board[y1-1][x1-1].is_piece_red()){
+            if(board[y1-2][x1-2].is_empty()){
+                if(y2 != (y1-2) && x2 != (x1-2)){
+                    return false;
+                }
+            }
+        }
+
+        //normal checks
+        if( (y1 >= 0 && y1 < 8 ) && (x1 >= 0 && x1 < 8) ){
+            if(board[y1][x1].is_empty()){
+                return false;
+            }
+            else{
+                if(y2 != y1-1){ // moving 'up' the board
+                    if(y2 != y1-2){ // did the piece jump?
+                        return false;
+                    }
+                    else{ 
+                        if(  (x2 != x1+1) && (x2 != x1-1) ){ // moving left or right
+                            if( (x2 != x1+2) && (x2 != x1-2) ){ // did the piece jump?
+                                return false;
+                            }
+
+                            else{
+                                if( x1 > x2 ){ 
+                                    if(board[y1-1][x1+1].is_empty( ) ){
+                                        return false;
+                                    }
+                                    else if(board[y1-1][x1+1].is_piece_white()){
+                                        return false;
+                                    }
+                                    else if(!board[y2][x2].is_empty()){
+                                        return false;
+                                    }
+                                }
+                                else{ // x1 < x2
+                                    if(board[y1-1][x1-1].is_empty( ) ){
+                                        return false;
+                                    }
+                                    else if(board[y1-1][x1-1].is_piece_white()){
+                                        return false;
+                                    }
+                                    else if(!board[y2][x2].is_empty()){
+                                        return false;
+                                    }
+                                }
+
+                            }
+                        }
+                        else{
+                            if(y2 < 0 || y2 > 8){ // make sure we dont run off the board
+                                return false;
+                            }
+                            else if(x2 < 0 || x2 > 8){ // make sure we dont run off the board
+                                return false;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        else{
+            return false;
+        }
+    }
+    else{ // piece is a king
+
+
+
+        //forced jumps 
+        if(board[y1-1][x1+1].is_piece_red() && board[y1-1][x1-1].is_piece_red() && board[y1+1][x1+1].is_piece_red() && board[y1+1][x1-1].is_piece_red()){
+            if(board[y1-2][x1+2].is_empty() && board[y1-2][x1-2].is_empty() && board[y1+2][x1+2].is_empty() && board[y1+2][x1-2].is_empty()){
+                if(board[y1-2][x1+2].is_empty() && board[y1-2][x1-2].is_empty() && board[y1+2][x1+2].is_empty() &&  board[y1+2][x1-2].is_empty()){
+                    if( (y2 != (y1-2) && x2 != (x1+2) ) || ( y2 != (y1-2) && x2 != (x1-2) ) || (y2 != (y1+2) && x2 != (x1+2) ) || (y2 != (y1+2) && x2 != (x1-2) )){
+                        return false;
+                    }
+                }
+            }
+        }
+        else if(board[y1-1][x1+1].is_piece_red()){
+            if(board[y1-2][x1+2].is_empty()){
+                if(y2 != (y1-2) && x2 != (x1+2)){
+                    return false;
+                }
+            }
+        } 
+        else if(board[y1-1][x1-1].is_piece_red()){
+            if(board[y1-2][x1-2].is_empty()){
+                if(y2 != (y1-2) && x2 != (x1-2)){
+                    return false;
+                }
+            }
+        }
+        else if(board[y1+1][x1-1].is_piece_red()){
+            if(board[y1+2][x1-2].is_empty()){
+                if(y2 != (y1+2) && x2 != (x1-2)){
+                    return false;
+                }
+            }
+        }
+        else if(board[y1+1][x1+1].is_piece_red()){
+            if(board[y1+2][x1+2].is_empty()){
+                if(y2 != (y1+2) && x2 != (x1+2)){
+                    return false;
+                }
+            }
+        }
+
+        //normal checks
+        if( (y1 >= 0 && y1 < 8 ) && (x1 >= 0 && x1 < 8) ){
+            if(board[y1][x1].is_empty()){
+                return false;
+            }
+            else{
+                if( (y2 != y1-1) && (y2 != y1+1)){ // moving 'up' or 'down' the board
+                    if( ( y2 != y1-2) && (y2 != y1+2 )){ // did the piece jump?
+                        return false;
+                    }
+                    else{ 
+                        if(  (x2 != x1+1) && (x2 != x1-1) ){ // moving left or right
+                            if( (x2 != x1+2) && (x2 != x1-2) ){ // did the piece jump?
+                                return false;
+                            }
+
+                            else{
+                                if( x1 > x2 ){ 
+                                    if(board[y1-1][x1+1].is_empty( ) ){
+                                        return false;
+                                    }
+                                    else if(board[y1-1][x1+1].is_piece_white()){
+                                        return false;
+                                    }
+                                    else if(!board[y2][x2].is_empty()){
+                                        return false;
+                                    }
+                                }
+                                else{ // x1 < x2
+                                    if(board[y1-1][x1-1].is_empty( ) ){
+                                        return false;
+                                    }
+                                    else if(board[y1-1][x1-1].is_piece_white()){
+                                        return false;
+                                    }
+                                    else if(!board[y2][x2].is_empty()){
+                                        return false;
+                                    }
+                                }
+
+                            }
+                        }
+                        else{
+                            if(y2 < 0 || y2 > 8){ // make sure we dont run off the board
+                                return false;
+                            }
+                            else if(x2 < 0 || x2 > 8){ // make sure we dont run off the board
+                                return false;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        else{
+            return false;
+        }
+    }
+    return true;
+}
+
+
+
+bool Checkers::red_move(int x1, int y1, int x2, int y2)const
+{
+
+
+    
+    if(!board[y1][x1].is_piece_king()){
+
+        //forced jumps
+        if(board[y1-1][x1+1].is_piece_white() && board[y1-1][x1-1].is_piece_white()){
+            if(board[y1-2][x1+2].is_empty() && board[y1-2][x1-2].is_empty()){
+                if(board[y1-2][x1+2].is_empty() && board[y1-2][x1-2].is_empty()){
+                    if( (y2 != (y1-2) && x2 != (x1+2) ) || ( y2 != (y1-2) && x2 != (x1-2) )){
+                        return false;
+                    }
+                }
+            }
+        }
+        else if(board[y1-1][x1+1].is_piece_white()){
+            if(board[y1-2][x1+2].is_empty()){
+                if(y2 != (y1-2) && x2 != (x1+2)){
+                    return false;
+                }
+            }
+        } 
+        else if(board[y1-1][x1-1].is_piece_white()){
+            if(board[y1-2][x1-2].is_empty()){
+                if(y2 != (y1-2) && x2 != (x1-2)){
+                    return false;
+                }
+            }
+        }
+
+
+        // normal checks
+        if( (y1 >= 0 && y1 < 8 ) && (x1 >= 0 && x1 < 8) ){
+            if(board[y1][x1].is_empty()){
+                return false;
+            }
+            else{
+                if(y2 != y1+1){ // moving 'up' the board
+                    if(y2 != y1+2){ // did the piece jump?
+                        return false;
+                    }
+                    else{ 
+                        if(  (x2 != x1+1) && (x2 != x1-1) ){ // moving left or right
+                            if( (x2 != x1+2) && (x2 != x1-2) ){ // did the piece jump?
+                                return false;
+                            }
+                            else{
+                                if( x1 > x2 ){ 
+                                    if(board[y1+1][x1+1].is_empty( ) ){
+                                        return false;
+                                    }
+                                    else if(board[y1+1][x1+1].is_piece_red()){
+                                        return false;
+                                    }
+                                    else if(!board[y2][x2].is_empty()){
+                                        return false;
+                                    }
+                                }
+                                else{ // x1 < x2
+                                    if(board[y1+1][x1-1].is_empty( ) ){
+                                        return false;
+                                    }
+                                    else if(board[y1+1][x1-1].is_piece_red()){
+                                        return false;
+                                    }
+                                    else if(!board[y2][x2].is_empty()){
+                                        return false;
+                                    }
+                                }
+                            }
+                        }
+                        else{
+                            if(y2 < 0 || y2 > 8){ // make sure we dont run off the board
+                                return false;
+                            }
+                            else if(x2 < 0 || x2 > 8){ // make sure we dont run off the board
+                                return false;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        else{
+            return false;
+        }
+    }
+
+    else{ // piece is a king
+
+
+            //forced jumps
+        if(board[y1-1][x1+1].is_piece_white() && board[y1-1][x1-1].is_piece_white() && board[y1+1][x1+1].is_piece_white() && board[y1+1][x1-1].is_piece_white()){
+            if(board[y1-2][x1+2].is_empty() && board[y1-2][x1-2].is_empty() && board[y1+2][x1+2].is_empty() && board[y1+2][x1-2].is_empty()){
+                if(board[y1-2][x1+2].is_empty() && board[y1-2][x1-2].is_empty() && board[y1+2][x1+2].is_empty() &&  board[y1+2][x1-2].is_empty()){
+                    if( (y2 != (y1-2) && x2 != (x1+2) ) || ( y2 != (y1-2) && x2 != (x1-2) ) || (y2 != (y1+2) && x2 != (x1+2) ) || (y2 != (y1+2) && x2 != (x1-2) )){
+                        return false;
+                    }
+                }
+            }
+        }
+        else if(board[y1-1][x1+1].is_piece_white()){
+            if(board[y1-2][x1+2].is_empty()){
+                if(y2 != (y1-2) && x2 != (x1+2)){
+                    return false;
+                }
+            }
+        } 
+        else if(board[y1-1][x1-1].is_piece_white()){
+            if(board[y1-2][x1-2].is_empty()){
+                if(y2 != (y1-2) && x2 != (x1-2)){
+                    return false;
+                }
+            }
+        }
+        else if(board[y1+1][x1-1].is_piece_white()){
+            if(board[y1+2][x1-2].is_empty()){
+                if(y2 != (y1+2) && x2 != (x1-2)){
+                    return false;
+                }
+            }
+        }
+        else if(board[y1+1][x1+1].is_piece_white()){
+            if(board[y1+2][x1+2].is_empty()){
+                if(y2 != (y1+2) && x2 != (x1+2)){
+                    return false;
+                }
+            }
+        }
+
+
+
+        //normal checks
+        if( (y1 >= 0 && y1 < 8 ) && (x1 >= 0 && x1 < 8) ){
+            if(board[y1][x1].is_empty()){
+                return false;
+            }
+            else{
+                if( (y2 != y1+1) && (y2 != y1-1)){ // moving 'up' the board
+                    if( (y2 != y1+2) && (y2 != y1-2) ){ // did the piece jump?
+                        return false;
+                    }
+                    else{ 
+                        if(  (x2 != x1+1) && (x2 != x1-1) ){ // moving left or right
+                            if( (x2 != x1+2) && (x2 != x1-2) ){ // did the piece jump?
+                                return false;
+                            }
+                            else{
+                                if( x1 > x2 ){ 
+                                    if(board[y1+1][x1+1].is_empty( ) ){
+                                        return false;
+                                    }
+                                    else if(board[y1+1][x1+1].is_piece_red()){
+                                        return false;
+                                    }
+                                    else if(!board[y2][x2].is_empty()){
+                                        return false;
+                                    }
+                                }
+                                else{ // x1 < x2
+                                    if(board[y1+1][x1-1].is_empty( ) ){
+                                        return false;
+                                    }
+                                    else if(board[y1+1][x1-1].is_piece_red()){
+                                        return false;
+                                    }
+                                    else if(!board[y2][x2].is_empty()){
+                                        return false;
+                                    }
+                                }
+                            }
+                        }
+                        else{
+                            if(y2 < 0 || y2 > 8){ // make sure we dont run off the board
+                                return false;
+                            }
+                            else if(x2 < 0 || x2 > 8){ // make sure we dont run off the board
+                                return false;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return false;
+
+
+
+    }
+
+    return true;
+}
