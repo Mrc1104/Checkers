@@ -28,14 +28,15 @@ class Checkers : public game
     void display_status()const; // displays the board
     bool is_legal(const std::string& move) const; // checks to see if move is legal
     void restart(); // restarts the board
+    std::string get_user_move( ) const;
 
     //mutators
     void make_move(const std::string& move); // makes the move
     void make_single_move(const std::string& move); // helper function for make_move();
-    bool single_move(const std::string& move)const; // helper function for is_legal()
+    bool single_move(const std::string& move, int call)const; // helper function for is_legal()
     bool multiple_moves(const std::string& move)const; // helper function for is_legal()
-    bool white_move(int x1, int y1, int x2, int y2)const; // helper function for is_legal()
-    bool red_move(int x1, int y1, int x2, int y2)const; // helper function for is_legal()
+    bool white_move(int x1, int y1, int x2, int y2, int call)const; // helper function for is_legal()
+    bool red_move(int x1, int y1, int x2, int y2, int call)const; // helper function for is_legal()
     bool is_white_jump_possible(int x1, int y1, int x2, int y2)const;
     bool is_red_jump_possible(int x1, int y1, int x2, int y2)const;
 
@@ -54,6 +55,7 @@ class Checkers : public game
     // 	// Return true if the current game is finished: PHASE 2
     bool is_game_over( ) const;
     who winning( ) const;
+
 
 
 

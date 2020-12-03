@@ -67,6 +67,7 @@ void spaces::make_empty(){
     empty = true;
     piece_red = false;
     piece_red = false;
+    piece_king = 0;
 }
 
 // make square not empty
@@ -85,7 +86,6 @@ void spaces::make_piece_red(){
     piece_white = false;
     piece_red = true;
 }
-
 
 
 

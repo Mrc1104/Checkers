@@ -43,7 +43,7 @@ class spaces // board states
 
 
     private:
-    bool empty = false; // is the square empty
+    bool empty = true; // is the square empty
     bool red = false; // is the piece/space red
     bool black = false; // is the space black
     bool piece_red = false; // is the piece white
